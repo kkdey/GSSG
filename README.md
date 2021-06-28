@@ -149,7 +149,8 @@ can be ignored)
 
 ## Annotations
 
-All gene set S2G annotations studied in the companion paper can be found at `https://alkesgroup.broadinstitute.org/LDSCORE/Dey_Enhancer_MasterReg/`. Some of the large data files needed to run some of the codes above are not provided with this repo. The user can fetch them (by `wget`) from `https://alkesgroup.broadinstitute.org/LDSCORE/DeepLearning/Dey_DeepBoost_Imperio/data_extra/` and add them to the `processed_data/` directory.
+All gene set S2G annotations studied in the companion paper can be found at `https://alkesgroup.broadinstitute.org/LDSCORE/Dey_Enhancer_MasterReg/`. The Enhancer-Promoter processed prediction files can be found at 
+`https://alkesgroup.broadinstitute.org/LDSCORE/Dey_Enhancer_MasterReg/processed_data/`. Some of the large data files needed to run some of the codes above are not provided with this repo. The user can fetch them (by `wget`) from `https://alkesgroup.broadinstitute.org/LDSCORE/DeepLearning/Dey_DeepBoost_Imperio/data_extra/` and add them to the `processed_data/` directory.
 
 
 ## How to use these annotations?
