@@ -82,7 +82,7 @@ run_single_enrichment_analysis = function(annot_cell,
 out1 = c()
 for(m in 1:length(annot_names)){
   out1 = rbind(out1, run_single_enrichment_analysis(annot_cell, results_cell, annotation = annot_names[m],
-                                             traits = all_traits, index_in_results = 2))
+                                             traits = all_traits, index_in_results = 1))
 }
 rownames(out1) = annot_names
 
