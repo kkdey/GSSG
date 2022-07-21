@@ -1,22 +1,36 @@
-## GSSG : Gene Set and SNP-Gene strategies
+# GSSG : Combine SNP-gene linking strategy with Gene Sets 
 
-In this repo, we provide Codes for combining gene sets (programs) with S2G strategies to generate annotations 
-Also check out some relevant gene sets explored in our paper.
+A pipeline to perform the following steps. 
+
+- Generate gene programs for analysis
+- Link SNPs to genes in a gene program to generate a genome-wide annotation
+- Perform disease heritability enrichment analysis using S-LDSC
+
 
 ## Citation
 
 If you use the data or code from this repository, please cite these following papers
 
-<ins> **blood specific gene programs** </ins>
-Dey, K.K. et al bioRxiv. 2020. Unique contribution of enhancer-driven and master-regulator genes to autoimmune disease revealed using functionally informed SNP-to-gene linking strategies. [Link](https://www.biorxiv.org/content/10.1101/2020.09.02.279059v1)
+<ins> **blood enhancer-regulated and master-regulator gene programs** </ins>
+Dey, K.K., Gazal, S., van de Geijn, B., Kim, S.S., Nasser, J., Engreitz, J.M. and Price, A.L., 2022. SNP-to-gene linking strategies reveal contributions of enhancer-related and candidate master-regulator genes to autoimmune disease. Cell Genomics, 2(7), p.100145.
 
-<ins> **single-cell gene programs (sc-linker)** </ins>
-Jagadeesh, K.J.*, Dey, K.K.* et al bioRxiv. 2021. Identifying disease-critical cell types and cellular processes across the human body by integration of single-cell profiles and human genetics.(sc-linker) [Link]()
+<ins> **cell-type gene programs (sc-linker)** </ins>
+Jagadeesh, K.J.\*, Dey, K.K.\* et al bioRxiv. 2021. Identifying disease-critical cell types and cellular processes across the human body by integration of single-cell profiles and human genetics.[Link](https://www.biorxiv.org/content/10.1101/2021.03.19.436212v2)
 
-If you use the ABC S2G strategies please cite Nasser, J., Engreitz, J. et al. unpublished data. 2020. and [Fulco et al, 2019](https://www.nature.com/articles/s41588-019-0538-0). If you use PC-HiC S2G strategies, please cite [Javierre et al 2016 Cell](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5123897/). If you use ATAC (Yoshida), cite [Yoshida et al 2019 Cell](https://www.cell.com/cell/pdf/S0092-8674(18)31650-7.pdf). If you use eQTL S2G strategies, cite [Hormozdiari et al 2018 NG](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6030458/). If you use Roadmap S2G links, cite the references [here](https://ernstlab.biolchem.ucla.edu/roadmaplinking/). 
+If you use the ABC S2G strategies please cite Nasser, J., Engreitz, J. et al. unpublished data. 2020. and [Fulco et al, 2019](https://www.nature.com/articles/s41588-019-0538-0). If you use PC-HiC S2G strategies, please cite [Javierre et al 2016 Cell](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5123897/). If you use ATAC (Yoshida), cite [Yoshida et al 2019 Cell](https://www.cell.com/cell/pdf/S0092-8674(18)31650-7.pdf). If you use Roadmap S2G links, cite the references [here](https://ernstlab.biolchem.ucla.edu/roadmaplinking/). 
 
 
 ## Code Tutorial
+
+### Generate a Gene Program
+
+`code/calc_gene_scores` : Directory with codes to generate gene programs 
+  - `calc_gene_scores_enhancers.R`: Generate enhancer-regulated gene scores in blood (Dey et al 2022 Cell Genomics)
+  - `calc_gene_scores_masterreg.R`: Generate candidate master-regulator gene scores in blood (Dey et al 2022 Cell Genomics)
+  - `process_sclinker_output.R`: Generate cell type programs from Alzheimers disease progression (sclinker pipeline)
+
+See `genesets` for all gene programs corresponding to Dey et al 2022 Cell Genomics and `sclinker_genescores` for all gene programs 
+corresponding to Jagadeesh\*, Dey\* (sclinker)
 
 
 code/GeneSet_toS2G :  Here is a demo of how to run the codes to combine gene set with S2G strategy to create annotation
