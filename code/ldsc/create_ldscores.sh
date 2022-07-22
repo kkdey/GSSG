@@ -1,12 +1,12 @@
-annot_cell=/n/groups/price/kushal/Enhancer_MasterReg/data/ANNOTATIONS/GENE_SCORES2
-ldsc_path=/n/groups/price/kushal/LDSC/ldsc
-bfile_path=/n/groups/price/kushal/LDSC/1000G_EUR_Phase3_plink
-hapmap_path=/n/groups/price/kushal/LDSC/hapmap3_snps
+annot_cell=sclinker_annots
+ldsc_path=[LDSC_PATH]/ldsc
+bfile_path=[LDSC_PATH]/1000G_EUR_Phase3_plink
+hapmap_path=[LDSC_PATH]/hapmap3_snps
 
 IFS="
 "
 
-TASKFILE=/n/groups/price/kushal/Enhancer_MasterReg/data/temp.txt
+TASKFILE=example_sclinker_annot.txt
 
 module load conda2
 source activate ldsc

@@ -1,6 +1,6 @@
 bedops_cell=[BEDOPS_DIRECTORY]/BEDOPS/bin
 bedtools_cell=[BEDTOOLS_DIRECTORY]/BEDTOOLS/bedtools2/bin
-input_cell=$1
+input_cell=$1  #sclinker_beds/{Celltype} [directory where bed files are located]
 names=`ls $input_cell | cut -f 1 -d '.'`
 
 for name in $names

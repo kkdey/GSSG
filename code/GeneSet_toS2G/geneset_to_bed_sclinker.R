@@ -1,13 +1,23 @@
 library(data.table)
 library(R.utils)
 
-options(echo=TRUE) # if you want see commands in output file
-args <- commandArgs(trailingOnly = TRUE)
-print(args)
-genescore_dir <- toString(args[1])
-bed_dir <- toString(args[2])
-annot_name <- toString(args[3])
-enhancer_tissue <- toString(args[4])
+suppressPackageStartupMessages(library(optparse))
+suppressPackageStartupMessages(library(data.table))
+
+option_list <- list(
+  make_option("--genescore_dir", type="character", default="sclinker_genescores/Alzheimers/", help="Directory where you have sclinker output files"),
+  make_option("--bed_dir", type="character", default="sclinker_beds/Alzheimers/", help="Name of the file prefix"),
+  make_option("--annot_name", type="character", default="Disease_Endothelial_L2", help="Output directory with gene program files"),
+  make_option("--enhancer", type="character", default="BLD", help="Tissue for which enhancer-gene link is considered")
+)
+
+opt <- parse_args(OptionParser(option_list=option_list))
+dput(opt)
+
+genescore_dir <- opt$genescore_dir
+bed_dir <- opt$bed_dir
+annot_name <- opt$annot_name
+enhancer_tissue <- opt$enhancer
 
 score_file = paste0(genescore_dir, "/", annot_name, ".txt")
 gene_scores = read.delim(score_file, header=F)

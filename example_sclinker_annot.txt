@@ -1,0 +1,8 @@
+Disease_Astrocyte_L2.txt
+Disease_Endothelial_L2.txt
+Disease_Excitatory_L2.txt
+Disease_Inhibatory_L2.txt
+Disease_Microglia_L2.txt
+Disease_Oligodendrocyte_L2.txt
+Disease_Oligodendrocyte_Progenitor_L2.txt
+Disease_Pericyte_L2.txt

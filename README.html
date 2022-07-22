@@ -379,7 +379,7 @@ annotation</li>
 <p>If you use the data or code from this repository, please cite these
 following papers</p>
 <ins>
-<strong>blood enhancer-regulated and master-regulator gene
+<strong>Blood enhancer-regulated and master-regulator gene
 programs</strong>
 </ins>
 <p>Dey, K.K., Gazal, S., van de Geijn, B., Kim, S.S., Nasser, J.,
@@ -387,7 +387,7 @@ Engreitz, J.M. and Price, A.L., 2022. SNP-to-gene linking strategies
 reveal contributions of enhancer-related and candidate master-regulator
 genes to autoimmune disease. Cell Genomics, 2(7), p.100145.</p>
 <ins>
-<strong>cell-type gene programs (sc-linker)</strong>
+<strong>Cell-type gene programs (sc-linker)</strong>
 </ins>
 <p>Jagadeesh, K.J.*, Dey, K.K.* et al bioRxiv. 2021. Identifying
 disease-critical cell types and cellular processes across the human body
@@ -401,21 +401,9 @@ et al 2019 Cell</a>. If you use Roadmap S2G links, cite the references
 </div>
 <div id="code-tutorial" class="section level2">
 <h2>Code Tutorial</h2>
-<div id="generate-a-gene-program" class="section level3">
-<h3>Generate a Gene Program</h3>
-<p><code>code/calc_gene_scores</code> : Directory with codes to generate
-gene programs - <code>calc_gene_scores_enhancers.R</code>: Generate
-enhancer-regulated gene scores in blood (Dey et al 2022 Cell Genomics) -
-<code>calc_gene_scores_masterreg.R</code>: Generate candidate
-master-regulator gene scores in blood (Dey et al 2022 Cell Genomics) -
-<code>process_sclinker_output.R</code>: Generate cell type programs from
-Alzheimers disease progression (sclinker pipeline)</p>
-<p>See <code>genesets</code> for all gene programs corresponding to Dey
-et al 2022 Cell Genomics and <code>sclinker_genescores</code> for all
-gene programs corresponding to Jagadeesh*, Dey* (sclinker)</p>
-<p>code/GeneSet_toS2G : Here is a demo of how to run the codes to
-combine gene set with S2G strategy to create annotation</p>
-<p>Take a geneset file ( see demo
+<div id="step-1-generate-a-gene-program" class="section level3">
+<h3>STEP 1: Generate a Gene Program</h3>
+<p>An example of how a gene program looks ( see demo
 ~/code/GeneSet_toS2G/Test_GeneSets/geneset_example.txt )</p>
 <p><code>head -n 5 geneset_example.txt</code></p>
 <pre><code>RITA1   0
@@ -426,15 +414,52 @@ L3MBTL4-AS1 0</code></pre>
 <p>It is a 2 column file with the first column being the names of genes
 (HGNC names). If the gene names are in Emntrez or Ensembl, please
 convert them first to HGNC.</p>
+<p>How to generate gene scores related to our papers?</p>
+<p><code>code/calc_gene_scores</code> : Directory with codes to generate
+gene programs</p>
+<ul>
+<li><p><code>calc_gene_scores_enhancers.R</code>: Generate
+enhancer-regulated gene scores in blood (Dey et al 2022 Cell
+Genomics)</p></li>
+<li><p><code>calc_gene_scores_masterreg.R</code>: Generate candidate
+master-regulator gene scores in blood (Dey et al 2022 Cell
+Genomics)</p></li>
+<li><p><code>process_sclinker_output.R</code>: Generate cell type
+programs from Alzheimers disease progression (sclinker
+pipeline)</p></li>
+</ul>
+<p><code>code/calc_PPI_scores</code>: Directory with codes to run
+PPI-informed gene programs</p>
+<ul>
+<li><p><code>ppi_RWR.R</code>: Gene Programs using Random Walk with
+Restart on a general edgelist graph, see <code>example.R</code></p></li>
+<li><p><code>ppi_string_RWR.R</code>: Gene Programs using Random Walk
+with Restart on the STRING PPI network.</p></li>
+</ul>
+<p>See <code>genesets</code> for all gene programs corresponding to Dey
+et al 2022 Cell Genomics and <code>sclinker_genescores</code> for all
+gene programs corresponding to Jagadeesh*, Dey* et al (sc-linker).</p>
+<p><em>Illustration code for sclinker gene program generation</em></p>
+<pre class="{r}"><code>cd GSSG
+Rscript process_sclinker_output.R --inputcell sclinker --prefix Alzheimers --outcell sclinker_genescores</code></pre>
 </div>
-<div id="gene-set---annotation" class="section level3">
-<h3>Gene Set -&gt; Annotation</h3>
+<div id="step-2-gene-setprogram-to-snp-annotation" class="section level3">
+<h3>STEP 2: Gene set/program to SNP annotation</h3>
+<p>For this, download all contents in
+<code>https://alkesgroup.broadinstitute.org/LDSCORE/Dey_Enhancer_MasterReg/processed_data/</code>
+into the <code>processed_data</code> directory.</p>
+<p><code>code/GeneSet_toS2G</code> : Directory with codes to combine
+gene set with S2G strategy to create annotation</p>
 <p>We first run the script that converts the gene set file to
-probabilistic .bed format files (bedgraph) for different S2G
+probabilistic .bed format files (bed-graph) for different S2G
 strategies.</p>
 <p>First go to the folder</p>
 <pre><code>cd ~/GSSG/code/GeneSet_toS2G
 </code></pre>
+</div>
+<div id="step-2a-gene-sets-to-bedgraph-format-files-using-region-gene-linking" class="section level3">
+<h3>STEP 2A: Gene sets to bedgraph format files using region-gene
+linking</h3>
 <p>For <strong>blood specific data (Dey et al 2020)</strong> with 10
 different S2G strategies, run the following script</p>
 <pre><code>geneset_dir=Test_GeneSets
@@ -447,10 +472,22 @@ please run the following script</p>
 <pre><code>enhancer_tissue=&quot;BLD&quot; (for blood, can also be &quot;BRN&quot;, &quot;GI&quot;, &quot;LNG&quot;, &quot;LIV&quot;, &quot;KID&quot;, &quot;SKIN&quot;,
                       &quot;FAT&quot;, &quot;HRT&quot; for brain, intestine, lung, liver, kidney, skin, adipose and heart)
 bash geneset_to_bed_sclinker.sh $geneset_dir $bed_dir $geneset $enhancer_tissue</code></pre>
+<p><em>Illustration code for sclinker gene program to bedgraph</em></p>
+<pre class="{r}"><code>Rscript geneset_to_bed_sclinker.R --genescore_dir sclinker_genescores/Alzheimers/ --bed_dir sclinker_beds/Alzheimers/ --anot_name Disease_Endothelial_L2 --enhancer BLD</code></pre>
+</div>
+<div id="step-2b-cleaning-the-bedgraph-format-files" class="section level3">
+<h3>STEP 2B: Cleaning the bedgraph format files</h3>
 <p>We postprocess the created bedgraph files by removing overlapping
 intervals. The user needs BEDTOOLS and BEDOPS for the following script.
 Check <code>clean_bed.sh</code> for details.</p>
-<pre><code>bash clean_bed.sh $bed_dir/$geneset</code></pre>
+<pre><code>bash clean_bed.sh $bed_dir/$geneset 
+bash clean_bed.sh $sclinker_beds/$celltype</code></pre>
+<p><em>Illustration code for sclinker cleaning of bedgraph
+files</em></p>
+<pre class="{r}"><code>bash clean_bed.sh sclinker_beds/Disease_Endothelial_L2</code></pre>
+</div>
+<div id="step-2c-from-bedgraph-to-annotation-files" class="section level3">
+<h3>STEP 2C: From bedgraph to annotation files</h3>
 <p>Next we use a .bim file for a list of variants to annotate. We here
 use the .bim files widely used for S-LDSC analysis.</p>
 <pre><code>bimfile_path=&quot;~/GSSG/processed_data/BIMS&quot;
@@ -488,38 +525,45 @@ folder structure of the form</p>
   - geneset_example 
     - ABC_Road_{enhancer_tissue}
     - 100kb</code></pre>
+<p>Example code</p>
+<p><em>Illustration code for sclinker generating annotation
+files</em></p>
+<pre class="{r}"><code>bash bed_to_annot.sh sclinker_beds processed_data/BIMS sclinker_annots Disease_Endothelial_L2</code></pre>
 </div>
-<div id="gene-score-analysis-and-s-ldsc" class="section level3">
-<h3>Gene score analysis and S-LDSC</h3>
+<div id="disease-heritability-signal-of-annotations-using-s-ldsc" class="section level3">
+<h3>Disease heritability signal of annotations using S-LDSC</h3>
 <ol style="list-style-type: decimal">
-<li><p>Check
-<code>GSSG/code/calc_gene_scores/calc_gene_scores_enhancers.R</code> and
-<code>GSSG/code/calc_gene_scores/calc_gene_scores_masterreg.R</code> for
-how the gene sets in <code>GSSG/genesets</code> were computed.</p></li>
-<li><p>Check <code>GSSG/code/ppi_RWR.R</code> and
-<code>GSSG/code/ppi_string_RWR.R</code> for functions to compute
-PPI-informed combination of multiple gene scores either using gene
-network or using the STRING PPI network. Also check
-<code>GSSG/code/example.R</code> for a demo.</p></li>
 <li><p>For running the S-LDSC analysis, go to
 <code>GSSG/code/ldsc</code>.</p>
 <ul>
-<li>create_ldscores.sh : Create LD-scores from a reference panel
-<ul>
-<li>run_ldsc_reg.sh: Run regression model in S-LDSC</li>
-<li>ldsc_postprocess_taustar.R: calculate tau-star metric for S2G
-annotations of a gene set</li>
-<li>ldsc_postprocess_enrichment.R : calculate the enrichment metric for
-S2G annotations of a gene set</li>
-<li>ldsc_postprocess_joint_taustar.R : Joint S-LDSC analysis
-tau-star</li>
-<li>ldsc_postprocess_joint_enrichment.R : Joint S-LDSC analysis
-enrichment</li>
-<li>ldsc_postprocess_combined_taustar.R : Compute combined tau-star
-metric for the annotations</li>
-</ul></li>
+<li><p><code>create_ldscores.sh</code> : Create LD-scores from a
+reference panel</p></li>
+<li><p><code>run_ldsc_reg.sh</code>: Run regression model in
+S-LDSC</p></li>
 </ul></li>
 </ol>
+<p>For running these codes, you will need some files that you can save
+in two new directories - LDSC_PATH and SUMSTATS_PATH.</p>
+<ol style="list-style-type: decimal">
+<li>Download the LDSC from git (<a href="https://github.com/bulik/ldsc/wiki/Partitioned-Heritability" class="uri">https://github.com/bulik/ldsc/wiki/Partitioned-Heritability</a>)</li>
+<li>Download the baselineLD_v2.1 annotations from Broad webpage (<a href="https://alkesgroup.broadinstitute.org/LDSCORE/baselineLD_v2.1_annots/" class="uri">https://alkesgroup.broadinstitute.org/LDSCORE/baselineLD_v2.1_annots/</a>)</li>
+<li>Download 1000G plink files (<a href="https://alkesgroup.broadinstitute.org/Variant_effects/1000G_EUR_Phase3_plink/" class="uri">https://alkesgroup.broadinstitute.org/Variant_effects/1000G_EUR_Phase3_plink/</a>)</li>
+<li>HAPMAP3 SNPs (<a href="https://alkesgroup.broadinstitute.org/LDSCORE/hapmap3_snps.tgz" class="uri">https://alkesgroup.broadinstitute.org/LDSCORE/hapmap3_snps.tgz</a>)</li>
+<li>Download the weights file for 1000G (<a href="https://alkesgroup.broadinstitute.org/LDSCORE/weights_hm3_no_hla.tgz" class="uri">https://alkesgroup.broadinstitute.org/LDSCORE/weights_hm3_no_hla.tgz</a>)</li>
+<li>Download the baseline frq file for 1000G available (<a href="https://alkesgroup.broadinstitute.org/LDSCORE/1000G_Phase3_frq.tgz" class="uri">https://alkesgroup.broadinstitute.org/LDSCORE/1000G_Phase3_frq.tgz</a>)</li>
+<li>Download all sumstats you want to analyze and put them in
+SUMSTATS_PATH (<a href="https://alkesgroup.broadinstitute.org/LDSCORE/all_sumstats/" class="uri">https://alkesgroup.broadinstitute.org/LDSCORE/all_sumstats/</a>)</li>
+</ol>
+<p>You can postprocess the LDSC output using following codes</p>
+<pre><code>  - `ldsc_postprocess_taustar.R`: calculate tau-star metric for S2G annotations of a gene set
+  
+  - `ldsc_postprocess_enrichment.R` : calculate the enrichment metric for S2G annotations of a gene set
+  
+  - `ldsc_postprocess_joint_taustar.R` : Joint S-LDSC analysis tau-star
+  
+  - `ldsc_postprocess_joint_enrichment.R` : Joint S-LDSC analysis enrichment 
+  
+  - `ldsc_postprocess_combined_taustar.R` : Compute combined tau-star metric for the annotations </code></pre>
 </div>
 </div>
 <div id="gene-sets" class="section level2">
@@ -532,42 +576,33 @@ can be ignored)</p>
 <li><p>Enhancer-driven gene scores: ABC9_G_top10_0_015.txt (ABC-distal),
 EDS_Binary_top10.txt (EDS-binary), eQTL_CTS_prob.txt (eQTL-CTS),
 Expecto_MVP.txt (ExPecto-MVP), HOMOD_prob.txt (ATAC-distal)
-PCHiC_binary.txt (PC-HiC-binary), SEG_GTEx_top10.txt
-(SEG-blood)</p></li>
+PCHiC_binary.txt (PC-HiC-binary), SEG_GTEx_top10.txt (SEG-blood)
+[<code>genesets/</code>]</p></li>
 <li><p>Master-regulator gene scores: master_regulator.txt
-(Trans-master), TF_genes_curated.txt (TF-genes)</p></li>
+(Trans-master), TF_genes_curated.txt (TF-genes)
+[<code>genesets/</code>]</p></li>
 <li><p>PPI-informed gene scores: PPI_Enhancer.txt (PPI-enhancer),
 PPI_Master.txt (PPI-master), PPI_All.txt (PPI-all), PPI_control.txt
-(PPI-control)</p></li>
+(PPI-control) [<code>genesets/</code>]</p></li>
 <li><p>Additional gene scores: pLI_genes2.txt (pLI), RegNet_Enhancer.txt
-(RegNet-Enhancer), Trans_Reg_genes.txt (Trans-regulated)</p></li>
+(RegNet-Enhancer), Trans_Reg_genes.txt (Trans-regulated)
+[<code>genesets/</code>]</p></li>
+<li><p>Example sc-linker gene scores: Alzheimeers disease progression
+example - all cell types
+(<code>sclinker_genescores/Alzheimers</code>)</p></li>
 </ul>
 </div>
 <div id="annotations" class="section level2">
 <h2>Annotations</h2>
-<p>All gene set S2G annotations studied in the companion paper can be
+<p>All gene set-S2G annotations studied in the companion papers can be
 found at
-<code>https://alkesgroup.broadinstitute.org/LDSCORE/Dey_Enhancer_MasterReg/</code>.
-The Enhancer-Promoter processed prediction files can be found at
-<code>https://alkesgroup.broadinstitute.org/LDSCORE/Dey_Enhancer_MasterReg/processed_data/</code>.
-Some of the large data files needed to run some of the codes above are
-not provided with this repo. The user can fetch them (by
-<code>wget</code>) from
-<code>https://alkesgroup.broadinstitute.org/LDSCORE/DeepLearning/Dey_DeepBoost_Imperio/data_extra/</code>
-and add them to the <code>processed_data/</code> directory.</p>
+<code>https://alkesgroup.broadinstitute.org/LDSCORE/Dey_Enhancer_MasterReg/</code>
+(Dey et al Cell Genomics 2022) and
+<code>https://alkesgroup.broadinstitute.org/LDSCORE/Jagadeesh_Dey_sclinker/</code>
+(Jagadeesh*, Dey* et al, to appear, Nat Genet).</p>
 </div>
 <div id="how-to-use-these-annotations" class="section level2">
 <h2>How to use these annotations?</h2>
-<ol style="list-style-type: decimal">
-<li>Download the LDSC from git (<a href="https://github.com/bulik/ldsc/wiki/Partitioned-Heritability" class="uri">https://github.com/bulik/ldsc/wiki/Partitioned-Heritability</a>)</li>
-<li>Download the baselineLD_v2.1 annotations from Broad webpage (<a href="https://data.broadinstitute.org/alkesgroup/LDSCORE/" class="uri">https://data.broadinstitute.org/alkesgroup/LDSCORE/</a>)</li>
-<li>Download deep learning predictive annotations (see above) from <a href="https://data.broadinstitute.org/alkesgroup/LDSCORE/Dey_DeepLearning" class="uri">https://data.broadinstitute.org/alkesgroup/LDSCORE/Dey_DeepLearning</a></li>
-<li>Use your GWAS summary statistics formatted in LDSC details is
-available (<a href="https://github.com/bulik/ldsc/wiki/Summary-Statistics-File-Format" class="uri">https://github.com/bulik/ldsc/wiki/Summary-Statistics-File-Format</a>)</li>
-<li>Download the baseline frq file and weights for 1000G available (<a href="https://data.broadinstitute.org/alkesgroup/LDSCORE/" class="uri">https://data.broadinstitute.org/alkesgroup/LDSCORE/</a>)</li>
-<li>Run S-LDSC with these annotations conditional on baselineLD_v2.1
-(see <a href="https://github.com/bulik/ldsc/" class="uri">https://github.com/bulik/ldsc/</a>)</li>
-</ol>
 <pre><code>ANNOT FILE header (*.annot):
 
 CHR -- chromosome

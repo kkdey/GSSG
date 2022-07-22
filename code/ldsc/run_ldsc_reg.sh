@@ -1,17 +1,17 @@
-annot_cell=/n/groups/price/kushal/Enhancer_MasterReg/data/ANNOTATIONS/GENE_SCORES2
-baseline_cell=/n/groups/price/kushal/Enhancer_MasterReg/data/ANNOTATIONS/Baselines
+annot_cell=sclinker_annots
+baseline_cell=[LDSC_PATH]
 baseline_version=baselineLD_v2.1
-ldsc_path=/n/groups/price/kushal/LDSC/ldsc
-weights_path=/n/groups/price/ldsc/reference_files/1000G_EUR_Phase3/weights
-freq_path=/n/groups/price/kushal/LDSC/1000G_Phase3_frq
-sumstats_cell=/n/groups/price/ldsc/sumstats_formatted
-output_cell_pre=/n/groups/price/kushal/Enhancer_MasterReg/data/LDSC_RESULTS/GENE_SCORES2
+ldsc_path=[LDSC_PATH]/ldsc
+weights_path=[LDSC_PATH]/1000G_EUR_Phase3/weights
+freq_path=[LDSC_PATH]/1000G_Phase3_frq
+sumstats_cell=[SUMSTATS_PATH]
+output_cell_pre=sclinker_out
 
 IFS="
 "
 
-sumstats_taskfile=/n/groups/price/kushal/LDSC/ldsc/TASKFILES/sumstats_reduced_blood.txt
-annot_taskfile=/n/groups/price/kushal/Enhancer_MasterReg/data/temp.txt
+sumstats_taskfile=example_sclinker_sumstats.txt
+annot_taskfile=example_sclinker_annot.txt
 
 module load conda2
 source activate ldsc
