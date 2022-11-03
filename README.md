@@ -190,6 +190,7 @@ bash bed_to_annot.sh sclinker_beds processed_data/BIMS sclinker_annots Disease_E
     - `create_ldscores.sh` : Create LD-scores from a reference panel
     
     - `run_ldsc_reg.sh`: Run regression model in S-LDSC
+    
 	  
 For running these codes, you will need some files that you can save in two new directories -  LDSC_PATH and SUMSTATS_PATH.
 
@@ -202,7 +203,7 @@ For running these codes, you will need some files that you can save in two new d
 6) Download all sumstats you want to analyze and put them in SUMSTATS_PATH (https://alkesgroup.broadinstitute.org/LDSCORE/all_sumstats/)
 
 
-You can postprocess the LDSC output using following codes
+You can postprocess the LDSC output across traits using following codes
 
 	  - `ldsc_postprocess_taustar.R`: calculate tau-star metric for S2G annotations of a gene set
 	  
@@ -214,6 +215,35 @@ You can postprocess the LDSC output using following codes
 	  
 	  - `ldsc_postprocess_combined_taustar.R` : Compute combined tau-star metric for the annotations 
     
+## Calculating E-scores
+
+In sc-linker, we are proposing E-score as a metric to assess disease association of a gene program against all protein-coding genes.
+The E-score is defined as
+
+** E-score (program, trait) := S-LDSC Enrichment ( SNP annotation from Gene Program x Enhancer-gene strategy ) - 
+                                S-LDSC Enrichment (SNP annotation from All protein-coding genes x Enhancer-gene ) **
+
+We compute the E-score (program, trait) for each program across a large collection of traits (60).
+We define an estimate of standard error of E-score as
+
+** sE-score (program, trait) := sqrt(S1^2 + S2^2 + 2cor(SNP annotation from Gene Program x Enhancer-gene strategy, 
+                                                   SNP annotation from All protein-coding genes x Enhancer-gene)*S1*S2) **
+
+where
+
+*S1 = S-LDSC s.e. Enrichment (SNP annotation from Gene program x Enhancer-gene )* 
+*S2 = S-LDSC s.e. Enrichment (SNP annotation from All protein-coding genes x Enhancer-gene )* 
+
+For small gene programs, you can alternatively use
+
+** sE-score (program, trait) := sqrt(S1^2 + S2^2) **
+
+We then define
+
+** zE-score :=. E-score/sE-score **
+
+The distribution of zE-score is not always N(0, 1) across traits as traits have inherent correlation and pleiotropy, but you can use z-score distribution across many traits to get a p-value. 
+		
 
 ## Gene Sets
 
