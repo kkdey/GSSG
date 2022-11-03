@@ -232,6 +232,7 @@ We define an estimate of standard error of E-score as
 where
 
 *S1 = S-LDSC s.e. Enrichment (SNP annotation from Gene program x Enhancer-gene )* 
+
 *S2 = S-LDSC s.e. Enrichment (SNP annotation from All protein-coding genes x Enhancer-gene )* 
 
 For small gene programs, you can alternatively use
