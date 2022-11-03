@@ -221,13 +221,13 @@ In sc-linker, we are proposing E-score as a metric to assess disease association
 The E-score is defined as
 
 **E-score (program, trait) := S-LDSC Enrichment ( SNP annotation from Gene Program x Enhancer-gene strategy ) - 
-                                S-LDSC Enrichment (SNP annotation from All protein-coding genes x Enhancer-gene ) **
+                                S-LDSC Enrichment (SNP annotation from All protein-coding genes x Enhancer-gene )**
 
 We compute the E-score (program, trait) for each program across a large collection of traits (60).
 We define an estimate of standard error of E-score as
 
 **sE-score (program, trait) := sqrt(S1^2 + S2^2 + 2cor(SNP annotation from Gene Program x Enhancer-gene strategy, 
-                                                   SNP annotation from All protein-coding genes x Enhancer-gene)*S1*S2) **
+                                                   SNP annotation from All protein-coding genes x Enhancer-gene)*S1*S2)**
 
 where
 
@@ -236,11 +236,11 @@ where
 
 For small gene programs, you can alternatively use
 
-**sE-score (program, trait) := sqrt(S1^2 + S2^2) **
+**sE-score (program, trait) := sqrt(S1^2 + S2^2)**
 
 We then define
 
-**zE-score :=. E-score/sE-score **
+**zE-score :=. E-score/sE-score**
 
 The distribution of zE-score is not always N(0, 1) across traits as traits have inherent correlation and pleiotropy, but you can use z-score distribution across many traits to get a p-value. 
 		
