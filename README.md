@@ -81,8 +81,9 @@ and save them into the `processed_data` directory.
 For batch download, please use the `gsutil` command (https://cloud.google.com/storage/docs/gsutil), 
 and use the commands here (thanks to Krzysztof Polanski for pointing it out)
 
-gsutil cp -r gs://broad-alkesgroup-public/LDSCORE/Dey_Enhancer_MasterReg/processed_data .
-gsutil cp -r gs://broad-alkesgroup-public/LDSCORE/Jagadeesh_Dey_sclinker/extras .
+` gsutil cp -r gs://broad-alkesgroup-public/LDSCORE/Dey_Enhancer_MasterReg/processed_data .  `
+
+` gsutil cp -r gs://broad-alkesgroup-public/LDSCORE/Jagadeesh_Dey_sclinker/extras .  `
 
 
 
