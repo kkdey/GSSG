@@ -70,10 +70,21 @@ Rscript process_sclinker_output.R --inputcell sclinker --prefix Alzheimers --out
 
 ### STEP 2: Gene set/program to SNP annotation
 
-For this, download all contents in 
+For this, please download all contents from the directories below
+
 `https://alkesgroup.broadinstitute.org/LDSCORE/Dey_Enhancer_MasterReg/processed_data/`  and 
 `https://alkesgroup.broadinstitute.org/LDSCORE/Jagadeesh_Dey_sclinker/extras/`
-into the `processed_data` directory. 
+
+
+and save them into the `processed_data` directory. 
+
+For batch download, please use the `gsutil` command (https://cloud.google.com/storage/docs/gsutil), 
+and use the commands here (thanks to Krzysztof Polanski for pointing it out)
+
+gsutil cp -r gs://broad-alkesgroup-public/LDSCORE/Dey_Enhancer_MasterReg/processed_data .
+gsutil cp -r gs://broad-alkesgroup-public/LDSCORE/Jagadeesh_Dey_sclinker/extras .
+
+
 
 `code/GeneSet_toS2G` :  Directory with codes to combine gene set with S2G strategy to create annotation
 
